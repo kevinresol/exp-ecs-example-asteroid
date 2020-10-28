@@ -1,0 +1,4 @@
+-lib exp-ecs
+-cp ${SCOPE_DIR}/../exp-ecs-module-graphics/src
+-D exp-ecs-module-graphics=0.0.0
+--macro Sys.println("haxe_libraries/exp-ecs-module-graphics.hxml:3: [Warning] Using dev version of library exp-ecs-module-graphics")

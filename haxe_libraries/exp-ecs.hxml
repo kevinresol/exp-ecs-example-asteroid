@@ -1,0 +1,6 @@
+-lib tink_macro
+-lib tink_state
+-cp ${SCOPE_DIR}/../exp-ecs/src
+-D exp-ecs=0.0.0
+${SCOPE_DIR}/../exp-ecs/extraParams.hxml
+--macro Sys.println("haxe_libraries/exp-ecs.hxml:4: [Warning] Using dev version of library exp-ecs")

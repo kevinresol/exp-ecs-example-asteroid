@@ -1,0 +1,5 @@
+-lib exp-ecs
+-lib hxmath
+-cp ${SCOPE_DIR}/../exp-ecs-module-transform/src
+-D exp-ecs-module-transform=0.0.0
+--macro Sys.println("haxe_libraries/exp-ecs-module-transform.hxml:4: [Warning] Using dev version of library exp-ecs-module-transform")

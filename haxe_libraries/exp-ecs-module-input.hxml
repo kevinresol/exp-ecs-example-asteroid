@@ -1,0 +1,4 @@
+-lib exp-ecs
+-cp ${SCOPE_DIR}/../exp-ecs-module-input/src
+-D exp-ecs-module-input=0.0.0
+--macro Sys.println("haxe_libraries/exp-ecs-module-input.hxml:3: [Warning] Using dev version of library exp-ecs-module-input")

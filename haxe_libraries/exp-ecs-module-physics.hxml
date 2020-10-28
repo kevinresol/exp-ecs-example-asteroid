@@ -1,0 +1,6 @@
+-lib exp-ecs
+-cp ${SCOPE_DIR}/../exp-ecs-module-physics/src
+-D exp-ecs-module-physics=0.0.0
+--macro Sys.println("haxe_libraries/exp-ecs-module-physics.hxml:3: [Warning] Using dev version of library exp-ecs-module-physics")
+
+-lib exp-spatial

@@ -1,5 +1,7 @@
 package asteroid.prefab;
 
+import asteroid.data.*;
+import asteroid.component.*;
 import exp.ecs.*;
 import exp.ecs.module.transform.component.*;
 import exp.ecs.module.graphics.component.*;
@@ -18,10 +20,13 @@ abstract Bullet(Prefab) to Prefab {
 
 	function new() {
 		this = new Prefab();
+		this.add(BulletTag);
 		this.add(Transform2);
 		this.add(Velocity2, 0, 0);
 		this.add(Circle, 1);
+		this.add(HitCircle, 1);
 		this.add(Color, 0xffffffff);
+		this.add(Collider, CollisionMask.Bullet, CollisionMask.Asteroid);
 	}
 
 	public function spawn(world, x, y, r, vx, vy) {

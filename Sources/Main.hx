@@ -45,7 +45,7 @@ class Main {
 				final angular = ship.get(AngularVelocity2);
 				final transform = ship.get(Transform2);
 
-				var count = 1;
+				var count = 10;
 				while (count > 0) {
 					final x = Std.random(WIDTH);
 					final y = Std.random(HEIGHT);

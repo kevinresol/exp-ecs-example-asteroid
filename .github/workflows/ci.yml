@@ -34,5 +34,14 @@ jobs:
     - uses: lix-pm/setup-lix@master
       with:
         lix-version: 15.10.1
+        
     - run: lix download
     - run: lix run kha html5
+    
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages # The branch the action should deploy to.
+        FOLDER: build/html5 # The folder the action should deploy.
+        CLEAN: true # Automatically remove deleted files from the deploy branch

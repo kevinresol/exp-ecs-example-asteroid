@@ -31,7 +31,8 @@ jobs:
         path: ~/haxe
         key: haxe
       
-    - uses: lix-pm/setup-lix@master with:
-      lix-version: 15.10.1
+    - uses: lix-pm/setup-lix@master
+      with:
+        lix-version: 15.10.1
     - run: lix download
     - run: lix run kha html5

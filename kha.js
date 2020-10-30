@@ -154,7 +154,7 @@ Main.main = function() {
 			var muzzle_x = 15;
 			muzzle_y = 0;
 			muzzle_z = 1;
-			world.pipeline.add(0,new exp_ecs_module_input_system_CaptureKeyboardInput(exp_ecs_module_input_system_CaptureKeyboardInput.getSpec()));
+			world.pipeline.add(0,new exp_ecs_module_input_system_CaptureKeyboardInput());
 			world.pipeline.add(0,new exp_ecs_system_SimpleSystem("ControlShip",function(_) {
 				var up = keyboard.isDown.h[38];
 				var down = keyboard.isDown.h[40];
@@ -181,10 +181,10 @@ Main.main = function() {
 					asteroid_prefab_Bullet.spawn(asteroid_prefab_Bullet.get_inst(),world,x1,y1,transform.rotation,velocity.x,velocity.y);
 				}
 			}));
-			world.pipeline.add(1,new exp_ecs_module_physics_system_ResetCollisions(exp_ecs_module_physics_system_ResetCollisions.getSpec()));
-			world.pipeline.add(2,new exp_ecs_module_physics_system_ApplyForce2(exp_ecs_module_physics_system_ApplyForce2.getSpec()));
-			world.pipeline.add(2,new exp_ecs_module_physics_system_Move2(exp_ecs_module_physics_system_Move2.getSpec()));
-			world.pipeline.add(2,new exp_ecs_module_physics_system_Rotate2(exp_ecs_module_physics_system_Rotate2.getSpec()));
+			world.pipeline.add(1,new exp_ecs_module_physics_system_ResetCollisions());
+			world.pipeline.add(2,new exp_ecs_module_physics_system_ApplyForce2());
+			world.pipeline.add(2,new exp_ecs_module_physics_system_Move2());
+			world.pipeline.add(2,new exp_ecs_module_physics_system_Rotate2());
 			world.pipeline.add(2,new exp_ecs_system_SimpleSingleListSystem("WrapEdges",new exp_ecs_NodeListSpec(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2"),function(e) {
 				return { transform : e.getComponent("exp.ecs.module.transform.component.Transform2")};
 			}),function(nodes,dt) {
@@ -209,9 +209,9 @@ Main.main = function() {
 					}
 				}
 			}));
-			world.pipeline.add(2,new exp_ecs_module_transform_system_ComputeLocalTransform2(exp_ecs_module_transform_system_ComputeLocalTransform2.getSpec()));
-			world.pipeline.add(2,new exp_ecs_module_transform_system_ComputeGlobalTransform2(exp_ecs_module_transform_system_ComputeGlobalTransform2.getSpec()));
-			world.pipeline.add(2,new exp_ecs_module_physics_system_DetectCollision2(exp_ecs_module_physics_system_DetectCollision2.getSpec(),Main.WIDTH,Main.HEIGHT,5,5));
+			world.pipeline.add(2,new exp_ecs_module_transform_system_ComputeLocalTransform2());
+			world.pipeline.add(2,new exp_ecs_module_transform_system_ComputeGlobalTransform2());
+			world.pipeline.add(2,new exp_ecs_module_physics_system_DetectCollision2(Main.WIDTH,Main.HEIGHT,5,5));
 			world.pipeline.add(3,new exp_ecs_system_SimpleSingleListSystem("HandleBulletCollision",new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"asteroid.component.BulletTag"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Collider")),function(e) {
 				return { collider : e.getComponent("exp.ecs.module.physics.component.Collider")};
 			}),function(nodes,dt) {
@@ -288,7 +288,7 @@ Main.main = function() {
 				renderers.push(renderer);
 				return renderer;
 			};
-			world.pipeline.add(4,addRenderer(new exp_ecs_module_graphics_system_RenderGeometry2(exp_ecs_module_graphics_system_RenderGeometry2.getSpec())));
+			world.pipeline.add(4,addRenderer(new exp_ecs_module_graphics_system_RenderGeometry2()));
 			var renderer = addRenderer({ frame : null});
 			world.pipeline.add(4,new exp_ecs_system_SimpleSingleListSystem("RenderHealthBar",new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.HitCircle"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"asteroid.component.Health")),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2")),function(e) {
 				return { transform : e.getComponent("exp.ecs.module.transform.component.Transform2"), health : e.getComponent("asteroid.component.Health"), circle : e.getComponent("exp.ecs.module.physics.component.HitCircle")};
@@ -1480,16 +1480,13 @@ exp_ecs_system_SingleListSystem.prototype = $extend(exp_ecs_System.prototype,{
 	}
 	,__class__: exp_ecs_system_SingleListSystem
 });
-var exp_ecs_module_graphics_system_RenderGeometry2 = function(spec) {
-	exp_ecs_system_SingleListSystem.call(this,spec);
+var exp_ecs_module_graphics_system_RenderGeometry2 = function() {
+	exp_ecs_system_SingleListSystem.call(this,new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2"),exp_ecs_Query.Or(exp_ecs_Query.Or(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.geometry.component.Rectangle"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.geometry.component.Circle")),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.geometry.component.Polygon"))),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.graphics.component.Color")),function(e) {
+		return { transform : e.getComponent("exp.ecs.module.transform.component.Transform2"), rectangle : e.getComponent("exp.ecs.module.geometry.component.Rectangle"), polygon : e.getComponent("exp.ecs.module.geometry.component.Polygon"), color : e.getComponent("exp.ecs.module.graphics.component.Color"), circle : e.getComponent("exp.ecs.module.geometry.component.Circle")};
+	}));
 };
 $hxClasses["exp.ecs.module.graphics.system.RenderGeometry2"] = exp_ecs_module_graphics_system_RenderGeometry2;
 exp_ecs_module_graphics_system_RenderGeometry2.__name__ = true;
-exp_ecs_module_graphics_system_RenderGeometry2.getSpec = function() {
-	return new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2"),exp_ecs_Query.Or(exp_ecs_Query.Or(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.geometry.component.Rectangle"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.geometry.component.Circle")),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.geometry.component.Polygon"))),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.graphics.component.Color")),function(e) {
-		return { transform : e.getComponent("exp.ecs.module.transform.component.Transform2"), rectangle : e.getComponent("exp.ecs.module.geometry.component.Rectangle"), polygon : e.getComponent("exp.ecs.module.geometry.component.Polygon"), color : e.getComponent("exp.ecs.module.graphics.component.Color"), circle : e.getComponent("exp.ecs.module.geometry.component.Circle")};
-	});
-};
 exp_ecs_module_graphics_system_RenderGeometry2.__super__ = exp_ecs_system_SingleListSystem;
 exp_ecs_module_graphics_system_RenderGeometry2.prototype = $extend(exp_ecs_system_SingleListSystem.prototype,{
 	frame: null
@@ -1568,18 +1565,15 @@ exp_ecs_module_input_component_Keyboard.prototype = {
 	}
 	,__class__: exp_ecs_module_input_component_Keyboard
 };
-var exp_ecs_module_input_system_CaptureKeyboardInput = function(spec) {
+var exp_ecs_module_input_system_CaptureKeyboardInput = function() {
 	this.lastEvents = [];
 	this.events = [];
-	exp_ecs_system_SingleListSystem.call(this,spec);
+	exp_ecs_system_SingleListSystem.call(this,new exp_ecs_NodeListSpec(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.input.component.Keyboard"),function(e) {
+		return { keyboard : e.getComponent("exp.ecs.module.input.component.Keyboard")};
+	}));
 };
 $hxClasses["exp.ecs.module.input.system.CaptureKeyboardInput"] = exp_ecs_module_input_system_CaptureKeyboardInput;
 exp_ecs_module_input_system_CaptureKeyboardInput.__name__ = true;
-exp_ecs_module_input_system_CaptureKeyboardInput.getSpec = function() {
-	return new exp_ecs_NodeListSpec(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.input.component.Keyboard"),function(e) {
-		return { keyboard : e.getComponent("exp.ecs.module.input.component.Keyboard")};
-	});
-};
 exp_ecs_module_input_system_CaptureKeyboardInput.__super__ = exp_ecs_system_SingleListSystem;
 exp_ecs_module_input_system_CaptureKeyboardInput.prototype = $extend(exp_ecs_system_SingleListSystem.prototype,{
 	events: null
@@ -1779,16 +1773,13 @@ exp_ecs_module_physics_component_Velocity2.prototype = {
 	}
 	,__class__: exp_ecs_module_physics_component_Velocity2
 };
-var exp_ecs_module_physics_system_ApplyForce2 = function(spec) {
-	exp_ecs_system_SingleListSystem.call(this,spec);
+var exp_ecs_module_physics_system_ApplyForce2 = function() {
+	exp_ecs_system_SingleListSystem.call(this,new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Mass"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Force2")),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Velocity2")),function(e) {
+		return { velocity : e.getComponent("exp.ecs.module.physics.component.Velocity2"), mass : e.getComponent("exp.ecs.module.physics.component.Mass"), force : e.getComponent("exp.ecs.module.physics.component.Force2")};
+	}));
 };
 $hxClasses["exp.ecs.module.physics.system.ApplyForce2"] = exp_ecs_module_physics_system_ApplyForce2;
 exp_ecs_module_physics_system_ApplyForce2.__name__ = true;
-exp_ecs_module_physics_system_ApplyForce2.getSpec = function() {
-	return new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Mass"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Force2")),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Velocity2")),function(e) {
-		return { velocity : e.getComponent("exp.ecs.module.physics.component.Velocity2"), mass : e.getComponent("exp.ecs.module.physics.component.Mass"), force : e.getComponent("exp.ecs.module.physics.component.Force2")};
-	});
-};
 exp_ecs_module_physics_system_ApplyForce2.__super__ = exp_ecs_system_SingleListSystem;
 exp_ecs_module_physics_system_ApplyForce2.prototype = $extend(exp_ecs_system_SingleListSystem.prototype,{
 	update: function(dt) {
@@ -1806,8 +1797,10 @@ exp_ecs_module_physics_system_ApplyForce2.prototype = $extend(exp_ecs_system_Sin
 	}
 	,__class__: exp_ecs_module_physics_system_ApplyForce2
 });
-var exp_ecs_module_physics_system_DetectCollision2 = function(tracker,width,height,maxElements,maxDepth) {
-	exp_ecs_system_SingleListSystem.call(this,tracker);
+var exp_ecs_module_physics_system_DetectCollision2 = function(width,height,maxElements,maxDepth) {
+	exp_ecs_system_SingleListSystem.call(this,new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Collider"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2")),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.HitCircle")),function(e) {
+		return { transform : e.getComponent("exp.ecs.module.transform.component.Transform2"), collider : e.getComponent("exp.ecs.module.physics.component.Collider"), circle : e.getComponent("exp.ecs.module.physics.component.HitCircle")};
+	}));
 	this.tree = new exp_spatial_QuadTree(width,height,maxElements,maxDepth);
 };
 $hxClasses["exp.ecs.module.physics.system.DetectCollision2"] = exp_ecs_module_physics_system_DetectCollision2;
@@ -1852,11 +1845,6 @@ exp_ecs_module_physics_system_DetectCollision2.visitor = function(quad) {
 		}
 	}
 };
-exp_ecs_module_physics_system_DetectCollision2.getSpec = function() {
-	return new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Collider"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2")),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.HitCircle")),function(e) {
-		return { transform : e.getComponent("exp.ecs.module.transform.component.Transform2"), collider : e.getComponent("exp.ecs.module.physics.component.Collider"), circle : e.getComponent("exp.ecs.module.physics.component.HitCircle")};
-	});
-};
 exp_ecs_module_physics_system_DetectCollision2.__super__ = exp_ecs_system_SingleListSystem;
 exp_ecs_module_physics_system_DetectCollision2.prototype = $extend(exp_ecs_system_SingleListSystem.prototype,{
 	tree: null
@@ -1880,16 +1868,13 @@ exp_ecs_module_physics_system_DetectCollision2.prototype = $extend(exp_ecs_syste
 	}
 	,__class__: exp_ecs_module_physics_system_DetectCollision2
 });
-var exp_ecs_module_physics_system_Move2 = function(spec) {
-	exp_ecs_system_SingleListSystem.call(this,spec);
+var exp_ecs_module_physics_system_Move2 = function() {
+	exp_ecs_system_SingleListSystem.call(this,new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Velocity2"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2")),function(e) {
+		return { velocity : e.getComponent("exp.ecs.module.physics.component.Velocity2"), transform : e.getComponent("exp.ecs.module.transform.component.Transform2")};
+	}));
 };
 $hxClasses["exp.ecs.module.physics.system.Move2"] = exp_ecs_module_physics_system_Move2;
 exp_ecs_module_physics_system_Move2.__name__ = true;
-exp_ecs_module_physics_system_Move2.getSpec = function() {
-	return new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Velocity2"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2")),function(e) {
-		return { velocity : e.getComponent("exp.ecs.module.physics.component.Velocity2"), transform : e.getComponent("exp.ecs.module.transform.component.Transform2")};
-	});
-};
 exp_ecs_module_physics_system_Move2.__super__ = exp_ecs_system_SingleListSystem;
 exp_ecs_module_physics_system_Move2.prototype = $extend(exp_ecs_system_SingleListSystem.prototype,{
 	update: function(dt) {
@@ -1906,16 +1891,13 @@ exp_ecs_module_physics_system_Move2.prototype = $extend(exp_ecs_system_SingleLis
 	}
 	,__class__: exp_ecs_module_physics_system_Move2
 });
-var exp_ecs_module_physics_system_ResetCollisions = function(spec) {
-	exp_ecs_system_SingleListSystem.call(this,spec);
+var exp_ecs_module_physics_system_ResetCollisions = function() {
+	exp_ecs_system_SingleListSystem.call(this,new exp_ecs_NodeListSpec(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Collider"),function(e) {
+		return { collider : e.getComponent("exp.ecs.module.physics.component.Collider")};
+	}));
 };
 $hxClasses["exp.ecs.module.physics.system.ResetCollisions"] = exp_ecs_module_physics_system_ResetCollisions;
 exp_ecs_module_physics_system_ResetCollisions.__name__ = true;
-exp_ecs_module_physics_system_ResetCollisions.getSpec = function() {
-	return new exp_ecs_NodeListSpec(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.Collider"),function(e) {
-		return { collider : e.getComponent("exp.ecs.module.physics.component.Collider")};
-	});
-};
 exp_ecs_module_physics_system_ResetCollisions.__super__ = exp_ecs_system_SingleListSystem;
 exp_ecs_module_physics_system_ResetCollisions.prototype = $extend(exp_ecs_system_SingleListSystem.prototype,{
 	update: function(dt) {
@@ -1926,16 +1908,13 @@ exp_ecs_module_physics_system_ResetCollisions.prototype = $extend(exp_ecs_system
 	}
 	,__class__: exp_ecs_module_physics_system_ResetCollisions
 });
-var exp_ecs_module_physics_system_Rotate2 = function(spec) {
-	exp_ecs_system_SingleListSystem.call(this,spec);
+var exp_ecs_module_physics_system_Rotate2 = function() {
+	exp_ecs_system_SingleListSystem.call(this,new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.AngularVelocity2"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2")),function(e) {
+		return { velocity : e.getComponent("exp.ecs.module.physics.component.AngularVelocity2"), transform : e.getComponent("exp.ecs.module.transform.component.Transform2")};
+	}));
 };
 $hxClasses["exp.ecs.module.physics.system.Rotate2"] = exp_ecs_module_physics_system_Rotate2;
 exp_ecs_module_physics_system_Rotate2.__name__ = true;
-exp_ecs_module_physics_system_Rotate2.getSpec = function() {
-	return new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.AngularVelocity2"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2")),function(e) {
-		return { velocity : e.getComponent("exp.ecs.module.physics.component.AngularVelocity2"), transform : e.getComponent("exp.ecs.module.transform.component.Transform2")};
-	});
-};
 exp_ecs_module_physics_system_Rotate2.__super__ = exp_ecs_system_SingleListSystem;
 exp_ecs_module_physics_system_Rotate2.prototype = $extend(exp_ecs_system_SingleListSystem.prototype,{
 	update: function(dt) {
@@ -1987,13 +1966,8 @@ exp_ecs_module_transform_component_Transform2.prototype = {
 	}
 	,__class__: exp_ecs_module_transform_component_Transform2
 };
-var exp_ecs_module_transform_system_ComputeGlobalTransform2 = function(spec) {
-	exp_ecs_system_SingleListSystem.call(this,spec);
-};
-$hxClasses["exp.ecs.module.transform.system.ComputeGlobalTransform2"] = exp_ecs_module_transform_system_ComputeGlobalTransform2;
-exp_ecs_module_transform_system_ComputeGlobalTransform2.__name__ = true;
-exp_ecs_module_transform_system_ComputeGlobalTransform2.getSpec = function() {
-	return new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2"),exp_ecs_Query.Component(1,exp_ecs_Modifier.Parent(exp_ecs_Modifier.Owned),"exp.ecs.module.transform.component.Transform2")),function(e) {
+var exp_ecs_module_transform_system_ComputeGlobalTransform2 = function() {
+	exp_ecs_system_SingleListSystem.call(this,new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2"),exp_ecs_Query.Component(1,exp_ecs_Modifier.Parent(exp_ecs_Modifier.Owned),"exp.ecs.module.transform.component.Transform2")),function(e) {
 		var tmp = e.getComponent("exp.ecs.module.transform.component.Transform2");
 		var entity = e;
 		var _g = 0;
@@ -2014,8 +1988,10 @@ exp_ecs_module_transform_system_ComputeGlobalTransform2.getSpec = function() {
 			}
 		}
 		return { transform : tmp, parent : entity == null ? null : entity.getComponent("exp.ecs.module.transform.component.Transform2")};
-	});
+	}));
 };
+$hxClasses["exp.ecs.module.transform.system.ComputeGlobalTransform2"] = exp_ecs_module_transform_system_ComputeGlobalTransform2;
+exp_ecs_module_transform_system_ComputeGlobalTransform2.__name__ = true;
 exp_ecs_module_transform_system_ComputeGlobalTransform2.__super__ = exp_ecs_system_SingleListSystem;
 exp_ecs_module_transform_system_ComputeGlobalTransform2.prototype = $extend(exp_ecs_system_SingleListSystem.prototype,{
 	update: function(dt) {
@@ -2064,16 +2040,13 @@ exp_ecs_module_transform_system_ComputeGlobalTransform2.prototype = $extend(exp_
 	}
 	,__class__: exp_ecs_module_transform_system_ComputeGlobalTransform2
 });
-var exp_ecs_module_transform_system_ComputeLocalTransform2 = function(spec) {
-	exp_ecs_system_SingleListSystem.call(this,spec);
+var exp_ecs_module_transform_system_ComputeLocalTransform2 = function() {
+	exp_ecs_system_SingleListSystem.call(this,new exp_ecs_NodeListSpec(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2"),function(e) {
+		return { transform : e.getComponent("exp.ecs.module.transform.component.Transform2")};
+	}));
 };
 $hxClasses["exp.ecs.module.transform.system.ComputeLocalTransform2"] = exp_ecs_module_transform_system_ComputeLocalTransform2;
 exp_ecs_module_transform_system_ComputeLocalTransform2.__name__ = true;
-exp_ecs_module_transform_system_ComputeLocalTransform2.getSpec = function() {
-	return new exp_ecs_NodeListSpec(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2"),function(e) {
-		return { transform : e.getComponent("exp.ecs.module.transform.component.Transform2")};
-	});
-};
 exp_ecs_module_transform_system_ComputeLocalTransform2.__super__ = exp_ecs_system_SingleListSystem;
 exp_ecs_module_transform_system_ComputeLocalTransform2.prototype = $extend(exp_ecs_system_SingleListSystem.prototype,{
 	update: function(dt) {

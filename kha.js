@@ -269,6 +269,20 @@ Main.main = function() {
 					}
 				}
 			}));
+			world.pipeline.add(3,new exp_ecs_system_SimpleSingleListSystem("HandleTTL",new exp_ecs_NodeListSpec(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"asteroid.component.TimeToLive"),function(e) {
+				return { ttl : e.getComponent("asteroid.component.TimeToLive")};
+			}),function(nodes,dt) {
+				var arr = nodes;
+				var _g2_cur = 0;
+				var _g2_max = arr.length;
+				while(_g2_cur != _g2_max) {
+					var node = arr[_g2_cur++];
+					var node1 = node.data.ttl;
+					if((node1.value -= dt) <= 0) {
+						world.entities.remove(node.entity.id);
+					}
+				}
+			}));
 			var renderers = [];
 			var addRenderer = function(renderer) {
 				renderers.push(renderer);
@@ -276,11 +290,21 @@ Main.main = function() {
 			};
 			world.pipeline.add(4,addRenderer(new exp_ecs_module_graphics_system_RenderGeometry2(exp_ecs_module_graphics_system_RenderGeometry2.getSpec())));
 			var renderer = addRenderer({ frame : null});
-			world.pipeline.add(3,new exp_ecs_system_SimpleSingleListSystem("RenderHealthBar",new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.HitCircle"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"asteroid.component.Health")),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2")),function(e) {
+			world.pipeline.add(4,new exp_ecs_system_SimpleSingleListSystem("RenderHealthBar",new exp_ecs_NodeListSpec(exp_ecs_Query.And(exp_ecs_Query.And(exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.physics.component.HitCircle"),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"asteroid.component.Health")),exp_ecs_Query.Component(2,exp_ecs_Modifier.Owned,"exp.ecs.module.transform.component.Transform2")),function(e) {
 				return { transform : e.getComponent("exp.ecs.module.transform.component.Transform2"), health : e.getComponent("asteroid.component.Health"), circle : e.getComponent("exp.ecs.module.physics.component.HitCircle")};
 			}),function(nodes,dt) {
 				var g2 = renderer.frame.get_g2();
 				g2.begin(false);
+				var _this = g2.transformations[g2.transformationIndex];
+				_this._00 = 1;
+				_this._10 = 0;
+				_this._20 = 0;
+				_this._01 = 0;
+				_this._11 = 1;
+				_this._21 = 0;
+				_this._02 = 0;
+				_this._12 = 0;
+				_this._22 = 1;
 				var arr = nodes;
 				var _g2_cur = 0;
 				var _g2_max = arr.length;
@@ -509,6 +533,25 @@ asteroid_component_ShipTag.prototype = {
 	}
 	,__class__: asteroid_component_ShipTag
 };
+var asteroid_component_TimeToLive = function(value) {
+	this.value = value;
+};
+$hxClasses["asteroid.component.TimeToLive"] = asteroid_component_TimeToLive;
+asteroid_component_TimeToLive.__name__ = true;
+asteroid_component_TimeToLive.__interfaces__ = [exp_ecs_Component];
+asteroid_component_TimeToLive.prototype = {
+	value: null
+	,get_signature: function() {
+		return "asteroid.component.TimeToLive";
+	}
+	,toString: function() {
+		return "TimeToLive";
+	}
+	,clone: function() {
+		return new asteroid_component_TimeToLive(this.value);
+	}
+	,__class__: asteroid_component_TimeToLive
+};
 var asteroid_prefab_Asteroid = {};
 asteroid_prefab_Asteroid.get_inst = function() {
 	if(asteroid_prefab_Asteroid.inst == null) {
@@ -573,6 +616,7 @@ asteroid_prefab_Bullet._new = function() {
 	this1.addComponent(new exp_ecs_module_physics_component_HitCircle(1));
 	this1.addComponent(new exp_ecs_module_graphics_component_Color(-1));
 	this1.addComponent(new exp_ecs_module_physics_component_Collider(1,2));
+	this1.addComponent(new asteroid_component_TimeToLive(1));
 	return this1;
 };
 asteroid_prefab_Bullet.spawn = function(this1,world,x,y,r,vx,vy) {
@@ -1384,7 +1428,6 @@ exp_ecs_module_graphics_system_RenderDebug.prototype = $extend(exp_ecs_System.pr
 	,__class__: exp_ecs_module_graphics_system_RenderDebug
 });
 var exp_ecs_module_graphics_system_RenderFps = function(font,x,y) {
-	this.time = kha_Scheduler.time();
 	this.font = font;
 	this.x = x;
 	this.y = y;
@@ -1397,12 +1440,9 @@ exp_ecs_module_graphics_system_RenderFps.prototype = $extend(exp_ecs_System.prot
 	,font: null
 	,x: null
 	,y: null
-	,time: null
 	,update: function(dt) {
 		var g2 = this.frame.get_g2();
-		var now = kha_Scheduler.time();
-		var fps = "FPS: " + Math.round(1 / (now - this.time));
-		this.time = now;
+		var fps = "FPS: " + Math.round(1 / dt);
 		g2.begin(false);
 		g2.set_font(this.font);
 		var _this = g2.transformations[g2.transformationIndex];

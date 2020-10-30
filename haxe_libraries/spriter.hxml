@@ -1,3 +1,0 @@
-# @install: lix --silent download "gh://github.com/wighawag/spriter#d561aa797ddd4facc4b1aad76d6f7241b49fd337" into spriter/0.1.1/github/d561aa797ddd4facc4b1aad76d6f7241b49fd337
--cp ${HAXE_LIBCACHE}/spriter/0.1.1/github/d561aa797ddd4facc4b1aad76d6f7241b49fd337/Sources
--D spriter=0.1.1

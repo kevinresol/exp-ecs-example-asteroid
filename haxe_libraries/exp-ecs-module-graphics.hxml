@@ -1,4 +1,6 @@
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-graphics#5ff6999709188deee8356f33d0a3879714c7a5ce" into exp-ecs-module-graphics/0.0.0/github/5ff6999709188deee8356f33d0a3879714c7a5ce
 -lib exp-ecs
--cp ${SCOPE_DIR}/../exp-ecs-module-graphics/src
+-lib exp-ecs-module-geometry
+-lib exp-ecs-module-transform
+-cp ${HAXE_LIBCACHE}/exp-ecs-module-graphics/0.0.0/github/5ff6999709188deee8356f33d0a3879714c7a5ce/src
 -D exp-ecs-module-graphics=0.0.0
---macro Sys.println("haxe_libraries/exp-ecs-module-graphics.hxml:3: [Warning] Using dev version of library exp-ecs-module-graphics")

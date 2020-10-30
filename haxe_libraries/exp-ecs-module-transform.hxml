@@ -1,5 +1,5 @@
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-transform#1666c46a873d3e6f221d6d37e7b2b95aaf5616fc" into exp-ecs-module-transform/0.0.0/github/1666c46a873d3e6f221d6d37e7b2b95aaf5616fc
 -lib exp-ecs
 -lib hxmath
--cp ${SCOPE_DIR}/../exp-ecs-module-transform/src
+-cp ${HAXE_LIBCACHE}/exp-ecs-module-transform/0.0.0/github/1666c46a873d3e6f221d6d37e7b2b95aaf5616fc/src
 -D exp-ecs-module-transform=0.0.0
---macro Sys.println("haxe_libraries/exp-ecs-module-transform.hxml:4: [Warning] Using dev version of library exp-ecs-module-transform")

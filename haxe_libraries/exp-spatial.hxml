@@ -1,3 +1,3 @@
--cp ${SCOPE_DIR}/../exp-spatial/src
+# @install: lix --silent download "gh://github.com/kevinresol/exp-spatial#a64d3546e0f0abf26b65cd60fe900b78df7c430c" into exp-spatial/0.0.0/github/a64d3546e0f0abf26b65cd60fe900b78df7c430c
+-cp ${HAXE_LIBCACHE}/exp-spatial/0.0.0/github/a64d3546e0f0abf26b65cd60fe900b78df7c430c/src
 -D exp-spatial=0.0.0
---macro Sys.println("haxe_libraries/exp-spatial.hxml:2: [Warning] Using dev version of library exp-spatial")

@@ -73,7 +73,7 @@ class Main {
 						force.setWithRotation(if ((!up && !down) || (up && down)) 0 else if (down) -100 else 100, transform.rotation);
 
 						final space = keyboard.justDown.get(Space);
-						if (space) {
+						if (space && !ship.removed) {
 							final muzzle = transform.global * muzzle;
 							Bullet.inst.spawn(world, muzzle.x, muzzle.y, transform.rotation, velocity.x, velocity.y);
 						}

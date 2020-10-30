@@ -6,9 +6,7 @@ project.windowOptions.height = 768;
 function addLixLibrary(name) {
 	let exec = require("child_process").execSync;
 	let buffer;
-	for (line of exec(`haxe --run resolve-args -lib ${name}`)
-		.toString()
-		.split("\n")) {
+	for (line of exec(`haxe --run resolve-args -lib ${name}`).toString().split("\n")) {
 		if (line.charAt(0) == "-") {
 			if (buffer) project.addParameter(buffer);
 			buffer = line;
@@ -16,6 +14,7 @@ function addLixLibrary(name) {
 			buffer += " " + line;
 		}
 	}
+	if (buffer) project.addParameter(buffer);
 }
 
 addLixLibrary("exp-ecs-module-transform");

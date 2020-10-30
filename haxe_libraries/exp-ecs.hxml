@@ -1,6 +1,6 @@
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs#f0d881782a2cf598a5a1370f17ec89a5dba79cb7" into exp-ecs/0.0.0/github/f0d881782a2cf598a5a1370f17ec89a5dba79cb7
 -lib tink_macro
 -lib tink_state
--cp ${SCOPE_DIR}/../exp-ecs/src
+-cp ${HAXE_LIBCACHE}/exp-ecs/0.0.0/github/f0d881782a2cf598a5a1370f17ec89a5dba79cb7/src
 -D exp-ecs=0.0.0
-${SCOPE_DIR}/../exp-ecs/extraParams.hxml
---macro Sys.println("haxe_libraries/exp-ecs.hxml:4: [Warning] Using dev version of library exp-ecs")
+--macro nullSafety("exp.ecs", Strict)

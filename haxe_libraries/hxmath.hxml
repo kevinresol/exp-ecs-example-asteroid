@@ -1,3 +1,3 @@
--cp ${SCOPE_DIR}/../hxmath
+# @install: lix --silent download "gh://github.com/tbrosman/hxmath#dbc87e2a99fe6e5f22e1f78299045fb9de5ff4a4" into hxmath/0.18.0/github/dbc87e2a99fe6e5f22e1f78299045fb9de5ff4a4
+-cp ${HAXE_LIBCACHE}/hxmath/0.18.0/github/dbc87e2a99fe6e5f22e1f78299045fb9de5ff4a4/
 -D hxmath=0.18.0
---macro Sys.println("haxe_libraries/hxmath.hxml:2: [Warning] Using dev version of library hxmath")

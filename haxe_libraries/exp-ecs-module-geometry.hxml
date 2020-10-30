@@ -1,4 +1,5 @@
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-geometry#13546f3e94e556f72cdda1bb82a4856c43ff3e3f" into exp-ecs-module-geometry/0.0.0/github/13546f3e94e556f72cdda1bb82a4856c43ff3e3f
 -lib exp-ecs
--cp ${SCOPE_DIR}/../exp-ecs-module-geometry/src
+-lib hxmath
+-cp ${HAXE_LIBCACHE}/exp-ecs-module-geometry/0.0.0/github/13546f3e94e556f72cdda1bb82a4856c43ff3e3f/src
 -D exp-ecs-module-geometry=0.0.0
---macro Sys.println("haxe_libraries/exp-ecs-module-geometry.hxml:3: [Warning] Using dev version of library exp-ecs-module-geometry")

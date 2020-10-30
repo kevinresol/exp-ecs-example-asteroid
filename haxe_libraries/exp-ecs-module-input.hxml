@@ -1,4 +1,6 @@
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-input#673dc827f0f50fc71f69c503c01ec794cbd5efa0" into exp-ecs-module-input/0.0.0/github/673dc827f0f50fc71f69c503c01ec794cbd5efa0
 -lib exp-ecs
--cp ${SCOPE_DIR}/../exp-ecs-module-input/src
+-lib exp-ecs-module-geometry
+-lib exp-ecs-module-transform
+-cp ${HAXE_LIBCACHE}/exp-ecs-module-input/0.0.0/github/673dc827f0f50fc71f69c503c01ec794cbd5efa0/src
 -D exp-ecs-module-input=0.0.0
---macro Sys.println("haxe_libraries/exp-ecs-module-input.hxml:3: [Warning] Using dev version of library exp-ecs-module-input")

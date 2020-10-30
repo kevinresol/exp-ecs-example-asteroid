@@ -1,6 +1,7 @@
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-physics#4f55c15f138562035ae0153013422ea7ce4dc30b" into exp-ecs-module-physics/0.0.0/github/4f55c15f138562035ae0153013422ea7ce4dc30b
 -lib exp-ecs
--cp ${SCOPE_DIR}/../exp-ecs-module-physics/src
--D exp-ecs-module-physics=0.0.0
---macro Sys.println("haxe_libraries/exp-ecs-module-physics.hxml:3: [Warning] Using dev version of library exp-ecs-module-physics")
-
+-lib exp-ecs-module-geometry
+-lib exp-ecs-module-transform
 -lib exp-spatial
+-cp ${HAXE_LIBCACHE}/exp-ecs-module-physics/0.0.0/github/4f55c15f138562035ae0153013422ea7ce4dc30b/src
+-D exp-ecs-module-physics=0.0.0

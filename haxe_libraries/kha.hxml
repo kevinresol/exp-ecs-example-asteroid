@@ -1,0 +1,4 @@
+# @install: lix --silent download "git:https://github.com/kevinresol/Kha#c6dd3becfea3672f8727c908e0a112d000b10950" into kha/0.0.0/git/c6dd3becfea3672f8727c908e0a112d000b10950
+# @run: haxelib run-dir kha ${HAXE_LIBCACHE}/kha/0.0.0/git/c6dd3becfea3672f8727c908e0a112d000b10950
+-cp ${HAXE_LIBCACHE}/kha/0.0.0/git/c6dd3becfea3672f8727c908e0a112d000b10950/Sources
+-D kha=0.0.0

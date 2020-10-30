@@ -1,6 +1,6 @@
-# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-graphics#5ff6999709188deee8356f33d0a3879714c7a5ce" into exp-ecs-module-graphics/0.0.0/github/5ff6999709188deee8356f33d0a3879714c7a5ce
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-graphics#d94f965efdc70ed98726d12619f7bfe025566fee" into exp-ecs-module-graphics/0.0.0/github/d94f965efdc70ed98726d12619f7bfe025566fee
 -lib exp-ecs
 -lib exp-ecs-module-geometry
 -lib exp-ecs-module-transform
--cp ${HAXE_LIBCACHE}/exp-ecs-module-graphics/0.0.0/github/5ff6999709188deee8356f33d0a3879714c7a5ce/src
+-cp ${HAXE_LIBCACHE}/exp-ecs-module-graphics/0.0.0/github/d94f965efdc70ed98726d12619f7bfe025566fee/src
 -D exp-ecs-module-graphics=0.0.0

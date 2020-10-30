@@ -144,6 +144,12 @@ class Main {
 								ShipWreck.inst.spawn(world, transform.position.x, transform.position.y, transform.rotation, velocity.x, velocity.y);
 								world.entities.remove(node.entity.id);
 						}));
+				world.pipeline.add(Update, exp.ecs.System.single( //
+					'HandleTTL', @:component(ttl) TimeToLive, //
+					(nodes, dt) -> for (node in nodes) {
+						if ((node.data.ttl.value -= dt) <= 0)
+							world.entities.remove(node.entity.id);
+					}));
 
 				final renderers:Array<{frame:kha.Framebuffer}> = [];
 				function addRenderer(renderer) {
@@ -154,11 +160,12 @@ class Main {
 				world.pipeline.add(Render, cast addRenderer(new RenderGeometry2(RenderGeometry2.getSpec())));
 
 				final renderer = addRenderer({frame: null});
-				world.pipeline.add(Update, exp.ecs.System.single( //
+				world.pipeline.add(Render, exp.ecs.System.single( //
 					'RenderHealthBar', @:component(circle) HitCircle && Health && @:component(transform) Transform2, //
 					(nodes, dt) -> {
 						final g2 = renderer.frame.g2;
 						g2.begin(false);
+						g2.transformation.setFrom(kha.math.FastMatrix3.identity());
 						for (node in nodes) {
 							final health = node.data.health;
 							final ratio = health.value / health.max;

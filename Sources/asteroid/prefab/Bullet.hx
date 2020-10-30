@@ -27,6 +27,7 @@ abstract Bullet(Prefab) to Prefab {
 		this.add(HitCircle, 1);
 		this.add(Color, 0xffffffff);
 		this.add(Collider, CollisionMask.Bullet, CollisionMask.Asteroid);
+		this.add(TimeToLive, 1);
 	}
 
 	public function spawn(world, x, y, r, vx, vy) {

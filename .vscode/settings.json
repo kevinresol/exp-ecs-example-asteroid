@@ -1,4 +1,7 @@
 {
 	"kha.khaPath": "/Users/kevin/Codes/Kha",
-	["haxe"]: { "editor.formatOnSave": true }
+	"[haxe]": {
+		"editor.formatOnSave": true
+	},
+	
 }

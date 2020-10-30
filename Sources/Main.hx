@@ -60,7 +60,7 @@ class Main {
 				final muzzle = new hxmath.math.Vector3(15, 0, 1);
 
 				// systems
-				world.pipeline.add(Input, new CaptureKeyboardInput(CaptureKeyboardInput.getSpec()));
+				world.pipeline.add(Input, new CaptureKeyboardInput());
 				world.pipeline.add(Input, System.simple( //
 					'ControlShip', //
 					_ -> {
@@ -79,10 +79,10 @@ class Main {
 						}
 					}));
 
-				world.pipeline.add(PreFixedUpdate, new ResetCollisions(ResetCollisions.getSpec()));
-				world.pipeline.add(FixedUpdate, new ApplyForce2(ApplyForce2.getSpec()));
-				world.pipeline.add(FixedUpdate, new Move2(Move2.getSpec()));
-				world.pipeline.add(FixedUpdate, new Rotate2(Rotate2.getSpec()));
+				world.pipeline.add(PreFixedUpdate, new ResetCollisions());
+				world.pipeline.add(FixedUpdate, new ApplyForce2());
+				world.pipeline.add(FixedUpdate, new Move2());
+				world.pipeline.add(FixedUpdate, new Rotate2());
 				world.pipeline.add(FixedUpdate, System.single( //
 					'WrapEdges', @:component(transform) Transform2, //
 					(nodes, dt) -> for (node in nodes) {
@@ -99,9 +99,9 @@ class Main {
 							local.y -= HEIGHT;
 					}));
 
-				world.pipeline.add(FixedUpdate, new ComputeLocalTransform2(ComputeLocalTransform2.getSpec()));
-				world.pipeline.add(FixedUpdate, new ComputeGlobalTransform2(ComputeGlobalTransform2.getSpec()));
-				world.pipeline.add(FixedUpdate, new DetectCollision2(DetectCollision2.getSpec(), WIDTH, HEIGHT, 5, 5));
+				world.pipeline.add(FixedUpdate, new ComputeLocalTransform2());
+				world.pipeline.add(FixedUpdate, new ComputeGlobalTransform2());
+				world.pipeline.add(FixedUpdate, new DetectCollision2(WIDTH, HEIGHT, 5, 5));
 
 				world.pipeline.add(Update, exp.ecs.System.single( //
 					'HandleBulletCollision', @:component(null) BulletTag && Collider, //
@@ -146,10 +146,9 @@ class Main {
 						}));
 				world.pipeline.add(Update, exp.ecs.System.single( //
 					'HandleTTL', @:component(ttl) TimeToLive, //
-					(nodes, dt) -> for (node in nodes) {
+					(nodes, dt) -> for (node in nodes)
 						if ((node.data.ttl.value -= dt) <= 0)
-							world.entities.remove(node.entity.id);
-					}));
+							world.entities.remove(node.entity.id)));
 
 				final renderers:Array<{frame:kha.Framebuffer}> = [];
 				function addRenderer(renderer) {
@@ -157,7 +156,7 @@ class Main {
 					return renderer;
 				}
 
-				world.pipeline.add(Render, cast addRenderer(new RenderGeometry2(RenderGeometry2.getSpec())));
+				world.pipeline.add(Render, cast addRenderer(new RenderGeometry2()));
 
 				final renderer = addRenderer({frame: null});
 				world.pipeline.add(Render, exp.ecs.System.single( //

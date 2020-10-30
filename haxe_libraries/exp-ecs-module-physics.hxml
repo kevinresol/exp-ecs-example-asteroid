@@ -1,7 +1,7 @@
-# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-physics#4f55c15f138562035ae0153013422ea7ce4dc30b" into exp-ecs-module-physics/0.0.0/github/4f55c15f138562035ae0153013422ea7ce4dc30b
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-physics#1496d56a4f42782df0fac971e6e794b3096eb54e" into exp-ecs-module-physics/0.0.0/github/1496d56a4f42782df0fac971e6e794b3096eb54e
 -lib exp-ecs
 -lib exp-ecs-module-geometry
 -lib exp-ecs-module-transform
 -lib exp-spatial
--cp ${HAXE_LIBCACHE}/exp-ecs-module-physics/0.0.0/github/4f55c15f138562035ae0153013422ea7ce4dc30b/src
+-cp ${HAXE_LIBCACHE}/exp-ecs-module-physics/0.0.0/github/1496d56a4f42782df0fac971e6e794b3096eb54e/src
 -D exp-ecs-module-physics=0.0.0

@@ -1,6 +1,6 @@
-# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-input#673dc827f0f50fc71f69c503c01ec794cbd5efa0" into exp-ecs-module-input/0.0.0/github/673dc827f0f50fc71f69c503c01ec794cbd5efa0
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-input#2edb43783aa02a3c96a7a425c922945883f3a3c2" into exp-ecs-module-input/0.0.0/github/2edb43783aa02a3c96a7a425c922945883f3a3c2
 -lib exp-ecs
 -lib exp-ecs-module-geometry
 -lib exp-ecs-module-transform
--cp ${HAXE_LIBCACHE}/exp-ecs-module-input/0.0.0/github/673dc827f0f50fc71f69c503c01ec794cbd5efa0/src
+-cp ${HAXE_LIBCACHE}/exp-ecs-module-input/0.0.0/github/2edb43783aa02a3c96a7a425c922945883f3a3c2/src
 -D exp-ecs-module-input=0.0.0

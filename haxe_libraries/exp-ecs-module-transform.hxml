@@ -1,5 +1,5 @@
-# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-transform#1666c46a873d3e6f221d6d37e7b2b95aaf5616fc" into exp-ecs-module-transform/0.0.0/github/1666c46a873d3e6f221d6d37e7b2b95aaf5616fc
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs-module-transform#b1ee69608c64331d8984afb2834e4cd83c4e2149" into exp-ecs-module-transform/0.0.0/github/b1ee69608c64331d8984afb2834e4cd83c4e2149
 -lib exp-ecs
 -lib hxmath
--cp ${HAXE_LIBCACHE}/exp-ecs-module-transform/0.0.0/github/1666c46a873d3e6f221d6d37e7b2b95aaf5616fc/src
+-cp ${HAXE_LIBCACHE}/exp-ecs-module-transform/0.0.0/github/b1ee69608c64331d8984afb2834e4cd83c4e2149/src
 -D exp-ecs-module-transform=0.0.0

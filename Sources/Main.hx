@@ -150,19 +150,18 @@ class Main {
 						if ((node.data.ttl.value -= dt) <= 0)
 							world.entities.remove(node.entity.id)));
 
-				final renderers:Array<{frame:kha.Framebuffer}> = [];
-				function addRenderer(renderer) {
-					renderers.push(renderer);
-					return renderer;
+				// ========== Rendering ==========
+				final renderContext:{g2:kha.graphics2.Graphics, font:kha.Font} = {
+					g2: null,
+					font: kha.Assets.fonts.kenney_mini,
 				}
 
-				world.pipeline.add(Render, cast addRenderer(new RenderGeometry2()));
+				world.pipeline.add(Render, new RenderGeometry2(renderContext));
 
-				final renderer = addRenderer({frame: null});
 				world.pipeline.add(Render, exp.ecs.System.single( //
 					'RenderHealthBar', @:component(circle) HitCircle && Health && @:component(transform) Transform2, //
 					(nodes, dt) -> {
-						final g2 = renderer.frame.g2;
+						final g2 = renderContext.g2;
 						g2.begin(false);
 						g2.transformation.setFrom(kha.math.FastMatrix3.identity());
 						for (node in nodes) {
@@ -182,16 +181,13 @@ class Main {
 						}
 						g2.end();
 					}));
-				world.pipeline.add(Render, cast addRenderer(new RenderFps(kha.Assets.fonts.kenney_mini, 10, 10)));
-				world.pipeline.add(Render, cast addRenderer(new RenderDebug(kha.Assets.fonts.kenney_mini, 10, 30)));
+				world.pipeline.add(Render, new RenderFps(10, 10, renderContext));
+				world.pipeline.add(Render, new RenderDebug(10, 30, renderContext));
 
 				// game loop
 				var time = kha.Scheduler.time();
 				kha.System.notifyOnFrames(frames -> {
-					final f = frames[0];
-					final g2 = f.g2;
-					for (renderer in renderers)
-						renderer.frame = f; // I don't like this way of passing the frame to the render system
+					final g2 = renderContext.g2 = frames[0].g2;
 
 					final now = kha.Scheduler.time();
 					final dt = now - time;
@@ -207,10 +203,11 @@ class Main {
 	}
 }
 
+@:transitive
 enum abstract Phase(Int) to Int {
-	var Input;
-	var PreFixedUpdate;
-	var FixedUpdate;
-	var Update;
-	var Render;
+	final Input;
+	final PreFixedUpdate;
+	final FixedUpdate;
+	final Update;
+	final Render;
 }

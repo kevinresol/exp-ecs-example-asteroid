@@ -1,6 +1,6 @@
-# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs#f0d881782a2cf598a5a1370f17ec89a5dba79cb7" into exp-ecs/0.0.0/github/f0d881782a2cf598a5a1370f17ec89a5dba79cb7
+# @install: lix --silent download "gh://github.com/kevinresol/exp-ecs#612daa0661914ef748b9858c21524bfc012ae32c" into exp-ecs/0.0.0/github/612daa0661914ef748b9858c21524bfc012ae32c
 -lib tink_macro
 -lib tink_state
--cp ${HAXE_LIBCACHE}/exp-ecs/0.0.0/github/f0d881782a2cf598a5a1370f17ec89a5dba79cb7/src
+-cp ${HAXE_LIBCACHE}/exp-ecs/0.0.0/github/612daa0661914ef748b9858c21524bfc012ae32c/src
 -D exp-ecs=0.0.0
 --macro nullSafety("exp.ecs", Strict)

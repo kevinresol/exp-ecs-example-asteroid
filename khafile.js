@@ -1,27 +1,27 @@
-let project = new Project("Asteroid");
-
-project.windowOptions.width = 1024;
-project.windowOptions.height = 768;
-
-function addLixLibrary(name) {
+Project.prototype.addLixLibrary = function(name) {
 	let exec = require("child_process").execSync;
 	let buffer;
 	for (line of exec(`haxe --run resolve-args -lib ${name}`).toString().split("\n")) {
 		if (line.charAt(0) == "-") {
-			if (buffer) project.addParameter(buffer);
+			if (buffer) this.addParameter(buffer);
 			buffer = line;
 		} else {
 			buffer += " " + line;
 		}
 	}
-	if (buffer) project.addParameter(buffer);
+	if (buffer) this.addParameter(buffer);
 }
 
-addLixLibrary("exp-ecs-module-transform");
-addLixLibrary("exp-ecs-module-geometry");
-addLixLibrary("exp-ecs-module-graphics");
-addLixLibrary("exp-ecs-module-physics");
-addLixLibrary("exp-ecs-module-input");
+let project = new Project("Asteroid");
+
+project.windowOptions.width = 1024;
+project.windowOptions.height = 768;
+
+project.addLixLibrary("exp-ecs-module-transform");
+project.addLixLibrary("exp-ecs-module-geometry");
+project.addLixLibrary("exp-ecs-module-graphics");
+project.addLixLibrary("exp-ecs-module-physics");
+project.addLixLibrary("exp-ecs-module-input");
 
 project.addAssets("Assets/**");
 project.addShaders("Shaders/**");
